@@ -31,5 +31,28 @@ router.post('/register', (req,res) => {
       res.status(200).send(registerdUser);
     }
   }); 
+});
+
+// this uses a post Method to send requests from frontend to the endpoint localhost:3000/api/login
+router.post('/login', (req, res) => {
+  let userData = req.body;
+
+  // The findOne Method checks the mongodb to see if the entered email from the frontend exists in the db
+  User.findOne({email: userData.email}, (error, user) => {
+    if (error) {
+      console.log('Error!' + error);
+    } else {
+      if (!user) {
+        res.status(401).send('Invalid email');
+      } else 
+      if (user.password != userData.password) {
+        res.status(401).send('Invalid password');
+      } else {
+        res.status(200).send(user);
+      }
+    }
+  });
 })
+
+
 module.exports = router;
