@@ -8,6 +8,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/api', api);
+
+// this uses a get Method to send requests from frontend to the endpoint localhost:3000/ ie landing page
 app.get("/", (req, res)=> {
     res.send('Hello world from server.js')
 });
