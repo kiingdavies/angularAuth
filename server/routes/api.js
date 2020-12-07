@@ -24,12 +24,12 @@ router.post("/register", (req, res) => {
   let userData = req.body; // retreves the data inputted in frontend
   let user = new User(userData); // passes the data into a new instance of the imported User class that Mongoose understands
 
-  user.save((error, registerdUser) => {
+  user.save((error, registerUser) => {
     // this saves the entered data into Mongodb
     if (error) {
       console.log("Error! " + error);
     } else {
-      res.status(200).send(registerdUser);
+      res.status(200).send(registerUser);
     }
   });
 });
