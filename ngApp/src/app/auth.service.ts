@@ -1,3 +1,4 @@
+// this service is for authentication ie Register and Login
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
