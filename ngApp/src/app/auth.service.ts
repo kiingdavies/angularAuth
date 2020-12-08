@@ -18,6 +18,10 @@ export class AuthService {
   loginUser(user) {
     // user parameter is the object containing user email and password
     return this.http.post<any>(this._loginUrl, user);
-    }
   }
 
+  // this function checks if user is registered or not to be able to view the specila events
+  loggedIn() {
+    return !!localStorage.getItem('token'); // double negation !! makes the return value either true or false
+  }
+}
