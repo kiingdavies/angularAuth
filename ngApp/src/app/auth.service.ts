@@ -24,4 +24,9 @@ export class AuthService {
   loggedIn() {
     return !!localStorage.getItem('token'); // double negation !! makes the return value either true or false
   }
+
+  // this method fetches the token value
+  getToken(){
+    return localStorage.getItem('token')
+  }
 }
