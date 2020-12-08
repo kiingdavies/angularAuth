@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require("jsonwebtoken"); // for login verification
 const router = express.Router();
 const User = require("../models/user");
 const mongoose = require("mongoose");
@@ -24,12 +25,15 @@ router.post("/register", (req, res) => {
   let userData = req.body; // retreves the data inputted in frontend
   let user = new User(userData); // passes the data into a new instance of the imported User class that Mongoose understands
 
-  user.save((error, registerUser) => {
+  user.save((error, registeredUser) => {
     // this saves the entered data into Mongodb
     if (error) {
       console.log("Error! " + error);
     } else {
-      res.status(200).send(registerUser);
+      // create a payload and token from jwt
+      let payload = { subject: registeredUser._id };
+      let token = jwt.sign(payload, "secretKey")
+      res.status(200).send({token});
     }
   });
 });
@@ -48,7 +52,10 @@ router.post("/login", (req, res) => {
       } else if (user.password != userData.password) {
         res.status(401).send("Invalid password");
       } else {
-        res.status(200).send(user);
+        // create a payload and token from jwt
+        let payload = { subject: user._id}
+        let token = jwt.sign(payload, 'secretKey')
+        res.status(200).send({token});
       }
     }
   });
