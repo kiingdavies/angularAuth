@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken"); // for login verification
 const router = express.Router();
 const User = require("../models/user");
 const mongoose = require("mongoose");
-
 const db = "mongodb://localhost:27017/eventsdb";
 
 mongoose.connect(db,{ useNewUrlParser: true, useUnifiedTopology: true },(err) => {
@@ -24,7 +23,7 @@ function verifyToken(req, res, next){
   if (token === 'null'){
     return res.status(401).send('Unauthorized request')
   }
-  let payload = jwt.verify(token, 'secretkey')
+  let payload = jwt.verify(token, 'secretKey')
   if(!payload){
     return res.status(401).send('Unauthorized request')
   }
@@ -49,7 +48,7 @@ router.post("/register", (req, res) => {
     } else {
       // create a payload and token from jwt
       let payload = { subject: registeredUser._id };
-      let token = jwt.sign(payload, "secretKey")
+      let token = jwt.sign(payload, 'secretKey')
       res.status(200).send({token});
     }
   });
