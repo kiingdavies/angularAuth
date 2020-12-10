@@ -1,3 +1,4 @@
+// finished for now
 const express = require("express");
 const jwt = require("jsonwebtoken"); // for login verification
 const router = express.Router();
@@ -23,7 +24,7 @@ function verifyToken(req, res, next){
   if (token === 'null'){
     return res.status(401).send('Unauthorized request')
   }
-  let payload = jwt.verify(token, 'secretKey')
+  let payload = jwt.verify(token, 'secretKey') 
   if(!payload){
     return res.status(401).send('Unauthorized request')
   }
